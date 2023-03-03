@@ -45,12 +45,15 @@
                                 <td>
                                     @if(Auth::user()->role == 2 || Auth::user()->role == 3)
                                     <div class="flex flex-row justify-center"> 
-                                    <a href="/edit_user/{{ $u->id }}" class="bg-green-700 hover:bg-green-500 text-white py-1 px-2 mr-2 rounded">
-                                        <i class="fa fa-pen-to-square"></i> Edit 
-                                    </a>
-                                    <a href="/delete_user/{{ $u->id }}" class="bg-red-700 hover:bg-red-500 text-white py-1 px-2 rounded">
-                                        <i class="fa fa-trash"></i> Delete
-                                    </a>
+                                        <a href="/edit_user/{{ $u->id }}" class="bg-green-700 hover:bg-green-500 text-white py-1 px-2 mr-2 rounded">
+                                            <i class="fa fa-pen-to-square"></i> Edit 
+                                        </a>
+                                        <form method="GET" action="{{ route('delete_user', $u->id) }}">
+                                            @csrf
+                                            <button type="submit" class="show_confirm btn bg-red-700 hover:bg-red-500 text-white py-1 px-2 rounded" data-toggle="tooltip" title='Delete'>
+                                                <i class="fa fa-trash"></i> Delete
+                                            </button>
+                                        </form>
                                     </div>
                                     @endif
                                 </td>
@@ -65,8 +68,24 @@
     </div>
 </x-app-layout>
 
-<script type="application/javascript">
-    $(document).ready(function() {
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>
+<script type="text/javascript">
+     $('.show_confirm').click(function(event) {
+          var form =  $(this).closest("form");
+          event.preventDefault();
+          swal({
+              title: `Apakah anda yakin ingin menghapus user ini?`,
+              icon: "warning",
+              buttons: true,
+              dangerMode: true,
+          })
+          .then((willDelete) => {
+            if (willDelete) {
+                form.submit();
+            }
+          });
+      });
+      $(document).ready(function() {
         $('#tabel_user').DataTable({
             // searching:true,
             ordering:false,

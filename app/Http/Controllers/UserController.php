@@ -45,8 +45,6 @@ class UserController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        event(new Registered($user));
-
         return redirect('/user');
     }
 

@@ -58,6 +58,7 @@ class CategoryController extends Controller
 
     public function delete_category($id){
         DB::table('category')->where('id', $id)->delete();
+        DB::table('post_category')->where('id_category', $id)->delete();
 
         return redirect('/category');
     }
