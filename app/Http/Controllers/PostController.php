@@ -19,6 +19,12 @@ class PostController extends Controller
         return view('post.post', ['post'=>$post]);
     }
 
+    public function cari_post(Request $request){
+        $post = Post::with('user')->where('title','LIKE','%'.$request->search_post.'%')->paginate(5);
+
+        return view('post.post', ['post'=>$post]);
+    }
+
     public function lihat_post($id){
         $post = Post::with('user')->where('id',$id)->first();
         $post_category = Post::find($id)->category;
@@ -33,11 +39,12 @@ class PostController extends Controller
             session()->flash('post_red', 'Anda Tidak Diperbolehkan Melakukan Aksi Ini!');
             return redirect('/post');
         }
-        
+
         DB::table('post')->where('id', $id)->delete();
         DB::table('post_tag')->where('id_post', $id)->delete();
         DB::table('post_category')->where('id_post', $id)->delete();
 
         return redirect('/post');
     }
+
 }

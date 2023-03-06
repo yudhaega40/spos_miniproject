@@ -17,7 +17,13 @@
                 <span class="block sm:inline">{{ session('post_red') }}</span>
             </div>
         @endif
-        <input class="rounded mb-4 border-0 w-full appearance-none" type="text" id="search_post" name="search_post" placeholder="Search post by title..">
+        <form method="POST" action="{{ route('cari_post') }}">
+            @csrf
+            <div class="inline-flex flex flex-row mb-4 justify-end w-full">
+                <input class="inline-block border-0 appearance-none" type="text" id="search_post" name="search_post" placeholder="Search post by title..">
+                <button class="inline-block font-normal text-md text-white px-2 bg-blue-700 hover:bg-blue-500"> Search </button>
+            </div>
+        </form>
         @foreach($post as $p)
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg mb-4">
                 <div class="p-6 text-gray-900 dark:text-gray-100">

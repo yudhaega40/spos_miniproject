@@ -44,6 +44,7 @@ Route::post('/simpan_ubah_password', [UserController::class, 'simpan_ubah_passwo
 
 Route::get('/post', [PostController::class, 'index'])->middleware(['auth', 'verified'])->name('post');
 Route::get('/new_post', [PostController::class, 'new_post'])->middleware(['auth', 'verified'])->name('new_post');
+Route::post('/cari_post', [PostController::class, 'cari_post'])->middleware(['auth', 'verified'])->name('cari_post');
 Route::post('/simpan_new_post', [PostController::class, 'simpan_new_post'])->middleware(['auth', 'verified'])->name('simpan_new_post');
 Route::get('/delete_post/{id}', [PostController::class, 'delete_post'])->middleware(['auth', 'verified'])->name('delete_post');
 Route::get('/lihat_post/{id}', [PostController::class, 'lihat_post'])->middleware(['auth', 'verified'])->name('lihat_post');
