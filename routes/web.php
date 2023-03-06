@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -39,9 +40,13 @@ Route::get('/new_user', [UserController::class, 'new_user'])->middleware(['auth'
 Route::post('/simpan_new_user', [UserController::class, 'simpan_new_user'])->middleware(['auth', 'verified'])->name('simpan_new_user');
 Route::get('/delete_user/{id}', [UserController::class, 'delete_user'])->middleware(['auth', 'verified'])->name('delete_user');
 
-Route::get('/post', function () {
-    return view('post.post');
-})->middleware(['auth', 'verified'])->name('post');
+Route::get('/post', [PostController::class, 'index'])->middleware(['auth', 'verified'])->name('post');
+Route::get('/new_post', [PostController::class, 'new_post'])->middleware(['auth', 'verified'])->name('new_post');
+Route::post('/simpan_new_post', [PostController::class, 'simpan_new_post'])->middleware(['auth', 'verified'])->name('simpan_new_post');
+Route::get('/delete_post/{id}', [PostController::class, 'delete_post'])->middleware(['auth', 'verified'])->name('delete_post');
+Route::get('/lihat_post/{id}', [PostController::class, 'lihat_post'])->middleware(['auth', 'verified'])->name('lihat_post');
+Route::get('/edit_post/{id}', [PostController::class, 'edit_post'])->middleware(['auth', 'verified'])->name('edit_post');
+Route::post('/simpan_edit_post', [PostController::class, 'simpan_edit_post'])->middleware(['auth', 'verified'])->name('simpan_edit_post');
 
 Route::get('/category', [CategoryController::class, 'index'])->middleware(['auth', 'verified'])->name('category');
 Route::get('/new_category', [CategoryController::class, 'new_category'])->middleware(['auth', 'verified'])->name('new_category');
