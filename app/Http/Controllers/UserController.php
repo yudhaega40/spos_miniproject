@@ -49,6 +49,11 @@ class UserController extends Controller
     }
 
     public function edit($id){
+        if(Auth::user()->role == '1'){
+            session()->flash('user_red', 'Anda Tidak Diperbolehkan Melakukan Aksi Ini!');
+            return redirect('/user');
+        }
+
         $user = DB::table('users')->where('id', $id)->first();
 
         return view('user.edit_user', ['user' => $user]);
@@ -81,8 +86,35 @@ class UserController extends Controller
     }
 
     public function delete_user($id){
+        if(Auth::user()->role == '1'){
+            session()->flash('user_red', 'Anda Tidak Diperbolehkan Melakukan Aksi Ini!');
+            return redirect('/user');
+        }
+
         DB::table('users')->where('id', $id)->delete();
         DB::table('post')->where('id_user', $id)->update(['id_user' => '0']);
+        return redirect('/user');
+    }
+
+    public function ubah_password($id){
+        if(Auth::user()->role == '1'){
+            session()->flash('user_red', 'Anda Tidak Diperbolehkan Melakukan Aksi Ini!');
+            return redirect('/user');
+        }
+
+        $user = DB::table('users')->where('id', $id)->first();
+
+        return view('user.ubah_password', ['user' => $user]);
+    }
+
+    public function simpan_ubah_password(Request $request){
+        $request->validate([
+            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+        ]);
+
+        DB::table('users')->where('id', $request->id_user)->update([
+            'password' => Hash::make($request->password)
+        ]);
         return redirect('/user');
     }
 }

@@ -33,6 +33,12 @@
         <input type="hidden" id="id_user" name="id_user" value="{{ $user->id }}">
 
         <div class="flex items-center justify-end mt-4">
+            <a href="/user" type="submit" class="show_confirm btn bg-red-700 hover:bg-red-500 text-white py-1 px-2 rounded" data-toggle="tooltip" title='Delete'>
+                Cancel
+            </a>
+            <a href="/ubah_password/{{ $user->id }}" class="ml-4 bg-green-700 hover:bg-green-500 text-white py-1 px-2 rounded">
+                Change Password 
+            </a>
             <x-primary-button class="ml-4">
                 {{ __('Update') }}
             </x-primary-button>

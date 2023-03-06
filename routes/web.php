@@ -39,6 +39,8 @@ Route::post('/simpan_edit', [UserController::class, 'simpan_edit'])->middleware(
 Route::get('/new_user', [UserController::class, 'new_user'])->middleware(['auth', 'verified'])->name('new_user');
 Route::post('/simpan_new_user', [UserController::class, 'simpan_new_user'])->middleware(['auth', 'verified'])->name('simpan_new_user');
 Route::get('/delete_user/{id}', [UserController::class, 'delete_user'])->middleware(['auth', 'verified'])->name('delete_user');
+Route::get('/ubah_password/{id}', [UserController::class, 'ubah_password'])->middleware(['auth', 'verified'])->name('ubah_password');
+Route::post('/simpan_ubah_password', [UserController::class, 'simpan_ubah_password'])->middleware(['auth', 'verified'])->name('simpan_ubah_password');
 
 Route::get('/post', [PostController::class, 'index'])->middleware(['auth', 'verified'])->name('post');
 Route::get('/new_post', [PostController::class, 'new_post'])->middleware(['auth', 'verified'])->name('new_post');

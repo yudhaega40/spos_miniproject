@@ -31,6 +31,9 @@
                     <input type="hidden" name="id_tag" id="id_tag" value="{{ $tag->id }}">
 
                     <div class="flex items-center justify-end mt-4">
+                        <a href="/tag" type="submit" class="show_confirm btn bg-red-700 hover:bg-red-500 text-white py-1 px-2 rounded" data-toggle="tooltip" title='Delete'>
+                            Cancel
+                        </a>
                         <x-primary-button class="ml-4">
                             {{ __('Update') }}
                         </x-primary-button>

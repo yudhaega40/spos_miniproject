@@ -12,9 +12,14 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-        <input class="rounded mb-4 border-0 w-full appearance-none" type="text" id="search_post" name="search_post" data-search placeholder="Search post by title..">
+        @if (session()->has('post_red'))
+            <div class="bg-red-100 mb-4 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+                <span class="block sm:inline">{{ session('post_red') }}</span>
+            </div>
+        @endif
+        <input class="rounded mb-4 border-0 w-full appearance-none" type="text" id="search_post" name="search_post" placeholder="Search post by title..">
         @foreach($post as $p)
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg mb-4" data-filter-item data-filter-name="{{ strtolower($p->title) }}">
+            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg mb-4">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <h2 class="font-semibold text-3xl">{{ $p->title }}</h2>
                     @if ($p->id_user == 0)
@@ -47,6 +52,7 @@
                 </div>
             </div>
         @endforeach
+        {{ $post->links() }}
         </div>
     </div>
 </x-app-layout>
@@ -67,17 +73,5 @@
                 form.submit();
             }
         });
-    });
-
-    $('[data-search]').on('keyup', function() {
-        var searchVal = $(this).val();
-        var filterItems = $('[data-filter-item]');
-
-        if ( searchVal != '' ) {
-            filterItems.addClass('hidden');
-            $('[data-filter-item][data-filter-name*="' + searchVal.toLowerCase() + '"]').removeClass('hidden');
-        } else {
-            filterItems.removeClass('hidden');
-        }
     });
 </script>
