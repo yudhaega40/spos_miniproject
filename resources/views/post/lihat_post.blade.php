@@ -23,7 +23,7 @@
                         @endif
                     </p>
                     @endif
-                    <p class="font-normal text-lg mt-5"> {{ $post->content }} </p>
+                    <p class="font-normal text-lg mt-5 break-words"> {{ $post->content }} </p>
 
                     <div class="flex flex-row justify-start">
                         <p class="font-normal text-sm text-white font-bold mt-5 bg-blue-900 px-2 py-1 rounded-2xl">Tags:</p>
