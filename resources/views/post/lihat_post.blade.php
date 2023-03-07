@@ -1,8 +1,28 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Detail Post') }}
-        </h2> 
+        <div class="flex flex-row justify-between">
+            <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+                {{ __('Detail Post') }}
+            </h2>
+            <x-dropdown align="right">
+                <x-slot name="trigger">
+                    <a href="#" class="transition ease-in-out duration-150">
+                        <i class="fa-solid fa-ellipsis-vertical"></i>
+                    </a>
+                </x-slot>
+                <x-slot name="content">
+                    <x-dropdown-link href="/edit_post/{{ $post->id }}">
+                        <i class="fa fa-pen-to-square"></i> Edit
+                    </x-dropdown-link>
+                    <form method="GET" action="{{ route('delete_post', $post->id) }}">
+                        @csrf
+                        <x-dropdown-link href="#" class="show_confirm">
+                            <i class="fa fa-trash"></i> Delete
+                        </x-dropdown-link>
+                    </form>
+                </x-slot>
+            </x-dropdown>
+        </div>
     </x-slot>
 
     <div class="py-12">
@@ -49,3 +69,22 @@
         </div>
     </div>
 </x-app-layout>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>
+<script type="text/javascript">
+    $('.show_confirm').click(function(event) {
+        var form =  $(this).closest("form");
+        event.preventDefault();
+        swal({
+            title: `Apakah anda yakin ingin menghapus post ini?`,
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+        .then((willDelete) => {
+            if (willDelete) {
+                form.submit();
+            }
+        });
+    });
+</script>

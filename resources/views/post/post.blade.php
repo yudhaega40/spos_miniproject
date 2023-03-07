@@ -45,13 +45,13 @@
                 @endif
                 <div class="bg-white w-full rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
                     <div class="mb-8">
-                        <div class="text-gray-900 font-bold text-xl mb-2">
+                        <div class="text-gray-900 font-bold text-xl mb-2"><a href="/lihat_post/{{ $p->id }}">
                         @if(strlen($p->title) > 100)
                             {{ substr($p->title,0,100)."..." }}
                         @else
                             {{ $p->title }}
                         @endif
-                        </div>
+                        </a></div>
                         <p class="text-gray-700 text-base">
                         @if(strlen($p->content) > 200)
                             {{ substr($p->content,0,200)."..." }}
