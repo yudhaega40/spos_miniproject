@@ -23,6 +23,11 @@
                         @endif
                     </p>
                     @endif
+
+                    @if ($post->photo_dir)
+                        <img src="{{ asset('storage/' . $post->photo_dir) }}" alt="{{ asset('storage/' . $post->photo_dir) }}" class="object-none w-full rounded-xl mt-5">  
+                    @endif
+
                     <p class="font-normal text-lg mt-5 break-words"> {{ $post->content }} </p>
 
                     <div class="flex flex-row justify-start">

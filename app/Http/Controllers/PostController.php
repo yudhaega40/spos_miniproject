@@ -19,8 +19,8 @@ class PostController extends Controller
         return view('post.post', ['post'=>$post]);
     }
 
-    public function cari_post(Request $request){
-        $post = Post::with('user')->where('title','LIKE','%'.$request->search_post.'%')->paginate(5);
+    public function cari_post($q){
+        $post = Post::with('user')->where('title','LIKE','%'.$q.'%')->paginate(5);
 
         return view('post.post', ['post'=>$post]);
     }
@@ -47,4 +47,54 @@ class PostController extends Controller
         return redirect('/post');
     }
 
+    public function new_post()
+    {
+        $tag = DB::table('tag')->get();
+        $category = DB::table('category')->get();
+
+        return view('post.new_post', ['category' => $category, 'tag' => $tag]);
+    }
+
+    public function simpan_new_post(Request $request)
+    {
+        $request->validate([
+            'title' => ['required', 'string', 'max:255'],
+            'content' => ['required', 'string'],
+        ]);
+
+        if ($request->hasFile('foto')){
+			$path = $request->foto->store('foto');
+		}else{
+			$path = null;
+		}
+
+        $id_post = DB::table('post')->insertGetId([
+            'title' => $request->title,
+            'content' => $request->content,
+            'id_user' => Auth::user()->id,
+            'photo_dir' => $path,
+        ], 'id');
+        
+        if(!empty($request->tag)){
+            foreach($request->tag as $t){
+                DB::table('post_tag')->insert([
+                    'id_post' => $id_post,
+                    'id_tag' => $t,
+                ]);
+            }
+        }
+        
+        if(!empty($request->category)){
+            foreach($request->category as $c){
+                DB::table('post_category')->insert([
+                    'id_post' => $id_post,
+                    'id_category' => $c,
+                ]);
+            }
+        }
+
+        return redirect('/post');
+    }
+
+    
 }

@@ -17,33 +17,50 @@
                 <span class="block sm:inline">{{ session('post_red') }}</span>
             </div>
         @endif
-        <form method="POST" action="{{ route('cari_post') }}">
-            @csrf
-            <div class="inline-flex flex flex-row mb-4 justify-end w-full">
-                <input class="inline-block border-0 appearance-none" type="text" id="search_post" name="search_post" placeholder="Search post by title..">
-                <button class="inline-block font-normal text-md text-white px-2 bg-blue-700 hover:bg-blue-500"> Search </button>
+        <div class="inline-flex flex flex-row mb-4 justify-end w-full">
+            <input class="shadow-sm inline-block border-0 appearance-none" type="text" id="search_post" name="search_post" placeholder="Search post by title..">
+            <button class="shadow-sm inline-block font-normal text-md text-white px-2 bg-blue-500 hover:bg-blue-700" id="search_button" name="search_button"> Search </button>
+        </div>
+        @if(count($post) === 0)
+        <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg mb-4">
+            <div class="p-6 text-gray-900 dark:text-gray-100">
+                <p class="font-normal text-lg"> Post tidak ditemukan </p>
             </div>
-        </form>
+        </div>
+        @endif
         @foreach($post as $p)
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg mb-4">
-                <div class="p-6 text-gray-900 dark:text-gray-100">
-                    <h2 class="font-semibold text-3xl">{{ $p->title }}</h2>
-                    @if ($p->id_user == 0)
-                    <p class="font-light text-md"> Author: Account Deleted </p>
-                    @else
-                    <p class="font-light text-md"> Author: {{ $p->user->name }} 
-                        @if($p->user->role == 1)
-                            (Author)
-                        @elseif($p->user->role == 2)
-                            (Editor)
-                        @elseif($p->user->role == 3)
-                            (Admin)
+            <div class="max-w-sm w-full lg:max-w-full lg:flex mb-4">
+                @if ($p->photo_dir)
+                <div class="h-48 lg:h-auto lg:w-48 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden" style="background-image: url({{ asset('storage/' . $p->photo_dir) }});background-position: center center;">
+                </div>
+                @endif
+                <div class="bg-white w-full rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
+                    <div class="mb-8">
+                        <div class="text-gray-900 font-bold text-xl mb-2">{{ $p->title }}</div>
+                        <p class="text-gray-700 text-base">
+                        @if(strlen($p->content) > 200)
+                            {{ substr($p->content,0,200)."..." }}
+                        @else
+                            {{ $p->content }}
                         @endif
-                    </p>
-                    @endif
-                    <br>
-                    <p class="font-normal text-lg truncate"> {{ $p->content }} </p>
-                    <a href="/lihat_post/{{ $p->id }}" class="font-normal text-md text-blue-500"> Read more... </a>
+                        </p>
+                        <a href="/lihat_post/{{ $p->id }}" class="font-normal text-md text-blue-500"> Read more... </a>
+                    </div>
+                    <div class="flex items-center text-sm">
+                        @if ($p->id_user == 0)
+                        <p class="text-gray-900 leading-none"> Author: Account Deleted </p>
+                        @else
+                        <p class="text-gray-900 leading-none">Author: {{ $p->user->name }} 
+                            @if($p->user->role == 1)
+                                (Author)
+                            @elseif($p->user->role == 2)
+                                (Editor)
+                            @elseif($p->user->role == 3)
+                                (Admin)
+                            @endif
+                        </p>
+                        @endif
+                    </div>
                     <div class="flex flex-row justify-start mt-4">
                         @if(Auth::user()->role == 3 || (Auth::user()->role == 2 && ($p->id_user != 0 && $p->user->role != 3)) || (Auth::user()->role == 1 && Auth::user()->id == $p->id_user))
                         <a href="/edit_post/{{ $p->id }}" class="font-normal text-md text-white mr-2 px-2 rounded-lg bg-green-700 hover:bg-green-500"> Edit </a>
@@ -79,5 +96,18 @@
                 form.submit();
             }
         });
+    });
+
+    $("#search_post").keyup(function(event) {
+      if (event.keyCode === 13) {
+        $("#search_button").click();
+      }
+    });
+
+    $("#search_button").click(function(){
+        var input = $("#search_post").val();
+        if(input != ""){
+            window.location.href = "/cari_post/"+input;
+        }
     });
 </script>

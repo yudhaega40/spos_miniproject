@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('title');
             $table->text('content');
             $table->integer('id_user');
+            $table->string('photo_dir')->nullable();
         });
     }
 
