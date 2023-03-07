@@ -36,7 +36,7 @@
                             @foreach ($user as $u)
                             <tr>
                                 <td style="text-align: center">{{ $i }}</td>
-                                <td style="text-align: center">{{ $u->name }}</td>
+                                <td style="text-align: center"><a href='/post_by_author/{{$u->id}}' class="font-bold text-blue-500">{{ $u->name }}</a></td>
                                 <td style="text-align: center">{{ $u->email }}</td>
                                 <td style="text-align: center">
                                     @if($u->role == 1)

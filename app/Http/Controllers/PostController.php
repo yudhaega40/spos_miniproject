@@ -10,6 +10,7 @@ use Illuminate\View\View;
 use Illuminate\Support\Facades\DB;
 use App\Models\Post;
 use App\Http\Controllers\Controller;
+use Storage;
 
 class PostController extends Controller
 {
@@ -24,6 +25,37 @@ class PostController extends Controller
 
         return view('post.post', ['post'=>$post]);
     }
+
+    public function post_by_author($id){
+        $author_name = DB::table('users')->where('id', $id)->first();
+        $type = "by_author";
+
+        $post = Post::with('user')->where('id_user',$id)->paginate(5);
+
+        return view('post.post', ['post'=>$post,'type'=>$type,'author_name'=>$author_name]);
+    }
+
+    public function post_by_tag($id){
+        $tag_name = DB::table('tag')->where('id', $id)->first();
+        $type = "by_tag";
+
+        $tag = DB::table('post_tag')->select('id_post')->where('id_tag', $id)->get();
+        $array = json_decode(json_encode($tag), true);
+        $post = Post::with('user')->whereIn('id',$array)->paginate(5);
+
+        return view('post.post', ['post'=>$post,'type'=>$type,'tag_name'=>$tag_name]);
+    }
+
+    public function post_by_category($id){
+        $category_name = DB::table('category')->where('id', $id)->first();
+        $type = "by_category";
+
+        $category = DB::table('post_category')->select('id_post')->where('id_category', $id)->get();
+        $array = json_decode(json_encode($category), true);
+        $post = Post::with('user')->whereIn('id',$array)->paginate(5);
+
+        return view('post.post', ['post'=>$post,'type'=>$type,'category_name'=>$category_name]);
+    }   
 
     public function lihat_post($id){
         $post = Post::with('user')->where('id',$id)->first();
@@ -96,5 +128,4 @@ class PostController extends Controller
         return redirect('/post');
     }
 
-    
 }

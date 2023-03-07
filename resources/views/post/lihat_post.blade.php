@@ -13,7 +13,7 @@
                     @if ($post->id_user == 0)
                     <p class="font-light text-md text-center mt-1"> Author: Account Deleted </p>
                     @else
-                    <p class="font-light text-md text-center mt-1"> Author: {{ $post->user->name }} 
+                    <p class="font-light text-md text-center mt-1"><a href='/post_by_author/{{$post->id_user}}' class="text-blue-500"> Author: {{ $post->user->name }} 
                         @if($post->user->role == 1)
                             (Author)
                         @elseif($post->user->role == 2)
@@ -21,7 +21,7 @@
                         @elseif($post->user->role == 3)
                             (Admin)
                         @endif
-                    </p>
+                    </a></p>
                     @endif
 
                     @if ($post->photo_dir)
@@ -33,14 +33,14 @@
                     <div class="flex flex-row justify-start">
                         <p class="font-normal text-sm text-white font-bold mt-5 bg-blue-900 px-2 py-1 rounded-2xl">Tags:</p>
                         @foreach($post_tag as $pt)
-                            <p class="font-normal text-sm text-blue-900 font-bold mt-5 ml-4 border border-blue-900 px-2 py-1 rounded-2xl">{{ $pt->name }}</p>
+                            <p class="font-normal text-sm text-blue-900 font-bold mt-5 ml-4 border border-blue-900 px-2 py-1 rounded-2xl"><a href="/post_by_tag/{{$pt->id}}">{{ $pt->name }}</a></p>
                         @endforeach
                     </div>
 
                     <div class="flex flex-row justify-start">
                         <p class="font-normal text-sm text-white font-bold mt-5 bg-green-900 px-2 py-1 rounded-2xl">Kategori:</p>
                         @foreach($post_category as $pc)
-                            <p class="font-normal text-sm text-green-900 font-bold mt-5 ml-4 border border-green-900 px-2 py-1 rounded-2xl">{{ $pc->name }}</p>
+                            <p class="font-normal text-sm text-green-900 font-bold mt-5 ml-4 border border-green-900 px-2 py-1 rounded-2xl"><a href="/post_by_category/{{$pc->id}}">{{ $pc->name }}</a></p>
                         @endforeach
                     </div>
 

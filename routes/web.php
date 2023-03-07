@@ -50,6 +50,9 @@ Route::get('/delete_post/{id}', [PostController::class, 'delete_post'])->middlew
 Route::get('/lihat_post/{id}', [PostController::class, 'lihat_post'])->middleware(['auth', 'verified'])->name('lihat_post');
 Route::get('/edit_post/{id}', [PostController::class, 'edit_post'])->middleware(['auth', 'verified'])->name('edit_post');
 Route::post('/simpan_edit_post', [PostController::class, 'simpan_edit_post'])->middleware(['auth', 'verified'])->name('simpan_edit_post');
+Route::get('/post_by_author/{id}', [PostController::class, 'post_by_author'])->middleware(['auth', 'verified'])->name('post_by_author');
+Route::get('/post_by_tag/{id}', [PostController::class, 'post_by_tag'])->middleware(['auth', 'verified'])->name('post_by_tag');
+Route::get('/post_by_category/{id}', [PostController::class, 'post_by_category'])->middleware(['auth', 'verified'])->name('post_by_category');
 
 Route::get('/category', [CategoryController::class, 'index'])->middleware(['auth', 'verified'])->name('category');
 Route::get('/new_category', [CategoryController::class, 'new_category'])->middleware(['auth', 'verified'])->name('new_category');

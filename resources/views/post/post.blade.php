@@ -2,7 +2,16 @@
     <x-slot name="header">
         <div class="flex flex-row justify-between">
             <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                {{ __('Post') }}
+                Post
+                @if(isset($type))
+                    @if(isset($author_name))
+                        (Author: {{ $author_name->name }})
+                    @elseif(isset($tag_name))
+                        (Tag: {{ $tag_name->name }})
+                    @elseif(isset($category_name))
+                        (Category: {{ $category_name->name }})
+                    @endif
+                @endif
             </h2>
             <a href="{{ route('new_post') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                 <i class="fa-solid fa-plus"></i> New Post
@@ -36,7 +45,13 @@
                 @endif
                 <div class="bg-white w-full rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
                     <div class="mb-8">
-                        <div class="text-gray-900 font-bold text-xl mb-2">{{ $p->title }}</div>
+                        <div class="text-gray-900 font-bold text-xl mb-2">
+                        @if(strlen($p->title) > 100)
+                            {{ substr($p->title,0,100)."..." }}
+                        @else
+                            {{ $p->title }}
+                        @endif
+                        </div>
                         <p class="text-gray-700 text-base">
                         @if(strlen($p->content) > 200)
                             {{ substr($p->content,0,200)."..." }}
@@ -50,7 +65,7 @@
                         @if ($p->id_user == 0)
                         <p class="text-gray-900 leading-none"> Author: Account Deleted </p>
                         @else
-                        <p class="text-gray-900 leading-none">Author: {{ $p->user->name }} 
+                        <p class="text-gray-900 leading-none"><a href='/post_by_author/{{$p->id_user}}' class="font-normal text-blue-500">Author: {{ $p->user->name }} 
                             @if($p->user->role == 1)
                                 (Author)
                             @elseif($p->user->role == 2)
@@ -58,7 +73,7 @@
                             @elseif($p->user->role == 3)
                                 (Admin)
                             @endif
-                        </p>
+                        </a></p>
                         @endif
                     </div>
                     <div class="flex flex-row justify-start mt-4">

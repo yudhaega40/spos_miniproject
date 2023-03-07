@@ -28,7 +28,7 @@
                             @foreach ($tag as $t)
                             <tr>
                                 <td style="text-align: center">{{ $i }}</td>
-                                <td style="text-align: center"> {{ $t->name }}</td>
+                                <td style="text-align: center"><a href='/post_by_tag/{{$t->id}}' class="font-bold text-blue-500">{{ $t->name }}</a></td>
                                 <td style="text-align: center">{{ $t->desc }}</td>
                                 <td style="text-align: center">
                                 <div class="flex flex-row justify-center"> 
