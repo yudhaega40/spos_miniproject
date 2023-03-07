@@ -24,7 +24,7 @@
                                 <!-- Content -->
                                 <div class="mt-4">
                                     <x-input-label for="content" :value="__('Post Content')" />
-                                    <textarea id="content" class="block mt-1 w-full p-3" rows="14" name="content" required></textarea>
+                                    <textarea id="content" class="block mt-1 w-full p-3" rows="15" name="content" required></textarea>
                                     <x-input-error :messages="$errors->get('content')" class="mt-2" />
                                 </div>
                             </div>
@@ -51,8 +51,11 @@
                                     </div>
                                 </div>
 
-                                <input type="file" id="foto" name="foto" accept="image/png, image/gif, image/jpeg" class="mt-4 block w-full text-sm text-gray-500 file:py-2 file:px-6 file:rounded file:border-1 file:border-gray-400" />
-
+                                <div class="mt-4">
+                                    <x-input-label for="foto" :value="__('Add Photo')" />
+                                    <input type="file" id="foto" name="foto" accept="image/png, image/gif, image/jpeg" class="block w-full text-sm text-gray-500 file:py-2 file:px-6 file:rounded file:border-1 file:border-gray-400" />
+                                </div>
+                                
                                 <div class="flex flex-col items-center justify-end mt-4">
                                     <button class="w-full text-center mb-2 bg-slate-800 hover:bg-slate-700 text-white font-bold py-2 rounded-md">
                                         {{ __('Post') }}
