@@ -17,6 +17,7 @@ return new class extends Migration
             $table->text('content');
             $table->integer('id_user');
             $table->string('photo_dir')->nullable();
+            $table->timestamps();
         });
     }
 

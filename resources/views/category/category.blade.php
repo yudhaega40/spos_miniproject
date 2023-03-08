@@ -28,7 +28,7 @@
                             @foreach ($category as $c)
                             <tr>
                                 <td style="text-align: center">{{ $i }}</td>
-                                <td style="text-align: center"><a href='/post_by_category/{{$c->id}}' class="font-bold text-blue-500">{{ $c->name }}</a></td>
+                                <td style="text-align: center"><a href='/post_by_category/{{$c->id}}' class="font-semibold hover:text-blue-900">{{ $c->name }}</a></td>
                                 <td style="text-align: center">{{ $c->desc }}</td>
                                 <td style="text-align: center">
                                 <div class="flex flex-row justify-center"> 

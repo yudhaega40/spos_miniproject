@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Post;
 use App\Http\Controllers\Controller;
 use Storage;
+use Carbon\Carbon;
 
 class PostController extends Controller
 {
@@ -105,6 +106,8 @@ class PostController extends Controller
             'content' => $request->content,
             'id_user' => Auth::user()->id,
             'photo_dir' => $path,
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
         ], 'id');
         
         if(!empty($request->tag)){
@@ -127,5 +130,4 @@ class PostController extends Controller
 
         return redirect('/post');
     }
-
 }

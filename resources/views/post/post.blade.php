@@ -45,7 +45,7 @@
                 @endif
                 <div class="bg-white w-full rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
                     <div class="mb-8">
-                        <div class="text-gray-900 font-bold text-xl mb-2"><a href="/lihat_post/{{ $p->id }}">
+                        <div class="text-gray-900 font-bold text-xl mb-2"><a href="/lihat_post/{{ $p->id }}" class="hover:text-blue-900">
                         @if(strlen($p->title) > 100)
                             {{ substr($p->title,0,100)."..." }}
                         @else
@@ -63,9 +63,9 @@
                     </div>
                     <div class="flex items-center text-sm">
                         @if ($p->id_user == 0)
-                        <p class="text-gray-900 leading-none"> Author: Account Deleted </p>
+                        <p class="text-gray-500 leading-none"><i class="fa-regul fa-user"></i> Account Deleted </p>
                         @else
-                        <p class="text-gray-900 leading-none"><a href='/post_by_author/{{$p->id_user}}' class="font-normal text-blue-500">Author: {{ $p->user->name }} 
+                        <p class="text-gray-500 leading-none"><a href='/post_by_author/{{$p->id_user}}' class="hover:text-blue-900"><i class="fa-solid fa-user"></i> {{ $p->user->name }} 
                             @if($p->user->role == 1)
                                 (Author)
                             @elseif($p->user->role == 2)
@@ -75,6 +75,7 @@
                             @endif
                         </a></p>
                         @endif
+                        <p class="text-gray-500 leading-none ml-4"><i class="fa-regular fa-clock"></i> {{ $p->created_at->format('d F Y H:i:s') }}</p>
                     </div>
                     <div class="flex flex-row justify-start mt-4">
                         @if(Auth::user()->role == 3 || (Auth::user()->role == 2 && ($p->id_user != 0 && $p->user->role != 3)) || (Auth::user()->role == 1 && Auth::user()->id == $p->id_user))
