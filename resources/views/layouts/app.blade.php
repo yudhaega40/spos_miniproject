@@ -41,10 +41,5 @@
 
         {{-- JQuery 3.6 --}}
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
-        {{-- Script Datatables --}}
-        <script src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
-        <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css">
-
     </body>
 </html>

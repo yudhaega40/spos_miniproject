@@ -19,26 +19,34 @@
                     <span class="block sm:inline">{{ session('user_red') }}</span>
                 </div>
             @endif
+            <div class="inline-flex flex flex-row mb-4 justify-end w-full">
+                <input class="shadow-sm inline-block border-0 appearance-none" type="text" id="search" name="search" placeholder="Search user by name..">
+                <button class="shadow-sm inline-block font-normal text-md text-white px-2 bg-blue-500 hover:bg-blue-700" id="search_button" name="search_button"> Search </button>
+            </div>
+            @if(count($user) === 0)
+                <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg mb-4">
+                    <div class="p-6 text-gray-900 dark:text-gray-100">
+                        <p class="font-normal text-lg"> User tidak ditemukan </p>
+                    </div>
+                </div>
+            @else
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100 overflow-auto">
-                    <table class="cell-border stripe w-full table-auto" name="tabel_user" id="tabel_user">
+                    <table class="w-full lg:table-fixed border-collapse border border-slate-400 mb-4 break-words">
                         <thead>
-                            <tr>
-                                <th>No</th>
-                                <th>Nama</th>
-                                <th>Email</th>
-                                <th>Role</th>
-                                <th>Aksi</th>
+                            <tr class="bg-slate-300">
+                                <th class="border border-slate-400 text-center py-2 lg:w-4/12">Nama</th>
+                                <th class="border border-slate-400 text-center py-2 lg:w-5/12">Email</th>
+                                <th class="border border-slate-400 text-center py-2 lg:w-1/12">Role</th>
+                                <th class="border border-slate-400 text-center py-2 lg:w-2/12">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <?php $i=1 ?>
                             @foreach ($user as $u)
                             <tr>
-                                <td style="text-align: center">{{ $i }}</td>
-                                <td style="text-align: center"><a href='/post_by_author/{{$u->id}}' class="font-semibold hover:text-blue-900">{{ $u->name }}</a></td>
-                                <td style="text-align: center">{{ $u->email }}</td>
-                                <td style="text-align: center">
+                                <td class="border border-slate-400 text-center p-2"><a href='/post_by_author/{{$u->id}}' class="font-semibold hover:text-blue-900">{{ $u->name }}</a></td>
+                                <td class="border border-slate-400 text-center p-2">{{ $u->email }}</td>
+                                <td class="border border-slate-400 text-center p-2">
                                     @if($u->role == 1)
                                         {{ __('Author') }}
                                     @elseif($u->role == 2)
@@ -47,7 +55,7 @@
                                         {{ __('Admin') }}
                                     @endif
                                 </td>
-                                <td>
+                                <td class="border border-slate-400 text-center p-2"> 
                                     @if(Auth::user()->role == 2 || Auth::user()->role == 3)
                                     <div class="flex flex-row justify-center"> 
                                         <a href="/edit_user/{{ $u->id }}" class="bg-green-700 hover:bg-green-500 text-white py-1 px-2 mr-2 rounded text-center">
@@ -63,43 +71,45 @@
                                     @endif
                                 </td>
                             </tr>
-                            <?php $i++ ?>
                             @endforeach
                         </tbody>
                     </table>
+                    {{ $user->links() }}
                 </div>
             </div>
+            @endif
         </div>
     </div>
 </x-app-layout>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>
 <script type="text/javascript">
-     $('.show_confirm').click(function(event) {
-          var form =  $(this).closest("form");
-          event.preventDefault();
-          swal({
-              title: `Apakah anda yakin ingin menghapus user ini?`,
-              icon: "warning",
-              buttons: true,
-              dangerMode: true,
-          })
-          .then((willDelete) => {
+    $('.show_confirm').click(function(event) {
+        var form =  $(this).closest("form");
+        event.preventDefault();
+        swal({
+            title: `Apakah anda yakin ingin menghapus user ini?`,
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+        .then((willDelete) => {
             if (willDelete) {
                 form.submit();
             }
-          });
-      });
-      $(document).ready(function() {
-        $('#tabel_user').DataTable({
-            // searching:true,
-            ordering:false,
-            lengthChange:false,
-            pageLength:15,
-            responsive: true,
-            // "columnDefs": [
-            // { "searchable": false, "targets": 7 }
-            // ]
         });
+    });
+
+    $("#search").keyup(function(event) {
+      if (event.keyCode === 13) {
+        $("#search_button").click();
+      }
+    });
+
+    $("#search_button").click(function(){
+        var input = $("#search").val();
+        if(input != ""){
+            window.location.href = "/cari_user/"+input;
+        }
     });
 </script>

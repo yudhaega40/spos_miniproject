@@ -19,7 +19,16 @@ use Illuminate\Validation\Rules;
 class UserController extends Controller
 {
     public function index(){
-        $user = DB::table('users')->where('id','!=',Auth::user()->id)->get();
+        $user = DB::table('users')->where('id','!=',Auth::user()->id)->paginate(10);
+
+        return view('user.user', ['user' => $user]);
+    }
+
+    public function cari_user($q){
+        $user = DB::table('users')
+        ->where('name','LIKE','%'.$q.'%')
+        ->where('id','!=',Auth::user()->id)
+        ->paginate(10);
 
         return view('user.user', ['user' => $user]);
     }

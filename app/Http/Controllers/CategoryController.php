@@ -13,7 +13,16 @@ use Illuminate\Support\Facades\DB;
 class CategoryController extends Controller
 {
     public function index(){
-        $category = DB::table('category')->get();
+        $category = DB::table('category')->paginate(10);
+
+        return view('category.category', ['category' => $category]);
+    }
+
+    public function cari_category($q){
+        $category = DB::table('category')
+        ->where('name','LIKE','%'.$q.'%')
+        ->orWhere('desc','LIKE','%'.$q.'%')
+        ->paginate(10);
 
         return view('category.category', ['category' => $category]);
     }

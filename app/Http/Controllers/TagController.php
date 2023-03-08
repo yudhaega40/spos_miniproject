@@ -12,7 +12,16 @@ use Illuminate\Support\Facades\DB;
 class TagController extends Controller
 {
     public function index(){
-        $tag = DB::table('tag')->get();
+        $tag = DB::table('tag')->paginate(10);
+
+        return view('tag.tag', ['tag' => $tag]);
+    }
+
+    public function cari_tag($q){
+        $tag = DB::table('tag')
+        ->where('name','LIKE','%'.$q.'%')
+        ->orWhere('desc','LIKE','%'.$q.'%')
+        ->paginate(10);
 
         return view('tag.tag', ['tag' => $tag]);
     }
