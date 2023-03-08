@@ -32,7 +32,7 @@
             @else
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100 overflow-auto">
-                    <table class="w-full lg:table-fixed border-collapse border border-slate-400 mb-4 break-words">
+                    <table class="w-full lg:table-fixed border-collapse border border-slate-400 break-words">
                         <thead>
                             <tr class="bg-slate-300">
                                 <th class="border border-slate-400 text-center py-2 lg:w-4/12">Nama</th>
@@ -74,8 +74,8 @@
                             @endforeach
                         </tbody>
                     </table>
-                    {{ $user->links() }}
                 </div>
+                <div class="mt-4">{{ $user->links() }}</div>
             </div>
             @endif
         </div>

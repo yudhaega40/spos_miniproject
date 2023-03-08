@@ -25,20 +25,20 @@
             @else
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100 overflow-auto">
-                    <table class="w-full lg:table-fixed border-collapse border border-slate-400 mb-4 break-words">
+                    <table class="w-full lg:table-fixed border-collapse border border-slate-400 break-words">
                         <thead>
                             <tr class="bg-slate-300">
-                                <th class="border border-slate-400 text-center py-2 lg:w-4/12">Nama</th>
-                                <th class="border border-slate-400 text-center py-2 lg:w-6/12">Deskripsi</th>
-                                <th class="border border-slate-400 text-center py-2 lg:w-2/12">Aksi</th>
+                                <th class="border border-slate-400 text-center p-2 lg:w-4/12">Nama</th>
+                                <th class="border border-slate-400 text-center p-2 lg:w-6/12">Deskripsi</th>
+                                <th class="border border-slate-400 text-center p-2 lg:w-2/12">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($category as $c)
                             <tr>
-                                <td class="border border-slate-400 text-center py-2"><a href='/post_by_category/{{$c->id}}' class="font-semibold hover:text-blue-900">{{ $c->name }}</a></td>
-                                <td class="border border-slate-400 text-center py-2">{{ $c->desc }}</td>
-                                <td class="border border-slate-400 text-center py-2">
+                                <td class="border border-slate-400 text-center p-2"><a href='/post_by_category/{{$c->id}}' class="font-semibold hover:text-blue-900">{{ $c->name }}</a></td>
+                                <td class="border border-slate-400 text-center p-2">{{ $c->desc }}</td>
+                                <td class="border border-slate-400 text-center p-2">
                                     <div class="flex flex-row justify-center"> 
                                         <a href="/edit_category/{{ $c->id }}" class="bg-green-700 hover:bg-green-500 text-white py-1 px-2 mr-2 rounded">
                                             <i class="fa fa-pen-to-square"></i> Edit 
@@ -55,8 +55,8 @@
                             @endforeach
                         </tbody>
                     </table>
-                    {{ $category->links() }}
                 </div>
+                <div class="mt-4">{{ $category->links() }}</div>
             </div>
             @endif
         </div>
