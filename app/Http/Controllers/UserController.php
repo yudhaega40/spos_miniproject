@@ -32,7 +32,7 @@ class UserController extends Controller
     public function simpan_new_user(Request $request)
     {
         $request->validate([
-            'name' => ['required', 'string', 'max:255'],
+            'name' => ['required', 'string', 'max:20'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
             'role' => ['required'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
@@ -62,7 +62,7 @@ class UserController extends Controller
     public function simpan_edit(Request $request)
     {
         $request->validate([
-            'name' => ['required', 'string', 'max:255'],
+            'name' => ['required', 'string', 'max:20'],
             'email' => ['required', 'string', 'email', 'max:255'],
             'role' => ['required'],
         ]);

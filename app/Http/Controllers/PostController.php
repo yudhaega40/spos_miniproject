@@ -90,7 +90,7 @@ class PostController extends Controller
     public function simpan_new_post(Request $request)
     {
         $request->validate([
-            'title' => ['required', 'string', 'max:255'],
+            'title' => ['required', 'string', 'max:100'],
             'content' => ['required', 'string'],
         ]);
 

@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('tag', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('desc');
+            $table->string('name', 20);
+            $table->string('desc', 50);
         });
         Schema::create('post_tag', function (Blueprint $table) {
             $table->id();

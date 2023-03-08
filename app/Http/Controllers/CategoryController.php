@@ -24,8 +24,8 @@ class CategoryController extends Controller
 
     public function simpan_new_category(Request $request){
         $request->validate([
-            'name' => ['required', 'string', 'max:255', 'unique:category,name'],
-            'desc' => ['required', 'string'],
+            'name' => ['required', 'string', 'max:20', 'unique:category,name'],
+            'desc' => ['required', 'string', 'max:50'],
         ]);
 
         DB::table('category')->insert([
@@ -44,8 +44,8 @@ class CategoryController extends Controller
 
     public function simpan_edit_category(Request $request){
         $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'desc' => ['required', 'string'],
+            'name' => ['required', 'string', 'max:20'],
+            'desc' => ['required', 'string', 'max:50'],
         ]);
 
         DB::table('category')->where('id', $request->id_category)->update([

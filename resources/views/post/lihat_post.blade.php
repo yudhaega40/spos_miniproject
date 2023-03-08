@@ -2,24 +2,30 @@
     <x-slot name="header">
         <div class="flex flex-row justify-between">
             <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                {{ __('Detail Post') }}
+                {{ __('Detail Post') }} 
             </h2>
             <x-dropdown align="right">
                 <x-slot name="trigger">
-                    <a href="#" class="transition ease-in-out duration-150">
-                        <i class="fa-solid fa-ellipsis-vertical"></i>
+                    @if(Auth::user()->role == 3 || (Auth::user()->role == 1 && Auth::user()->id = $post->id_user) || (Auth::user()->role == 2 && ($post->id_user != 0 && $post->user->role != 3)))
+                    <a href="#" class="transition ease-in-out duration-150"> 
+                        <i class="fa-solid fa-ellipsis-vertical"></i> 
                     </a>
+                    @endif
                 </x-slot>
                 <x-slot name="content">
+                    @if(Auth::user()->role == 3 || (Auth::user()->role == 2 && ($post->id_user != 0 && $post->user->role != 3)) || (Auth::user()->role == 1 && Auth::user()->id == $post->id_user))
                     <x-dropdown-link href="/edit_post/{{ $post->id }}">
                         <i class="fa fa-pen-to-square"></i> Edit
                     </x-dropdown-link>
+                    @endif
+                    @if(Auth::user()->role == 3 || (Auth::user()->role == 2 && Auth::user()->id == $post->id_user) || (Auth::user()->role == 1 && Auth::user()->id == $post->id_user))
                     <form method="GET" action="{{ route('delete_post', $post->id) }}">
                         @csrf
                         <x-dropdown-link href="#" class="show_confirm">
                             <i class="fa fa-trash"></i> Delete
                         </x-dropdown-link>
                     </form>
+                    @endif
                 </x-slot>
             </x-dropdown>
         </div>

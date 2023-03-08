@@ -23,8 +23,8 @@ class TagController extends Controller
 
     public function simpan_new_tag(Request $request){
         $request->validate([
-            'name' => ['required', 'string', 'max:255', 'unique:tag,name'],
-            'desc' => ['required', 'string'],
+            'name' => ['required', 'string', 'max:20', 'unique:tag,name'],
+            'desc' => ['required', 'string', 'max:50'],
         ]);
 
         DB::table('tag')->insert([
@@ -43,8 +43,8 @@ class TagController extends Controller
 
     public function simpan_edit_tag(Request $request){
         $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'desc' => ['required', 'string'],
+            'name' => ['required', 'string', 'max:20'],
+            'desc' => ['required', 'string', 'max:50'],
         ]);
 
         DB::table('tag')->where('id', $request->id_tag)->update([

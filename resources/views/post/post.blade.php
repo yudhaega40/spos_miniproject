@@ -21,23 +21,23 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-        @if (session()->has('post_red'))
+            @if (session()->has('post_red'))
             <div class="bg-red-100 mb-4 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
                 <span class="block sm:inline">{{ session('post_red') }}</span>
             </div>
-        @endif
-        <div class="inline-flex flex flex-row mb-4 justify-end w-full">
-            <input class="shadow-sm inline-block border-0 appearance-none" type="text" id="search_post" name="search_post" placeholder="Search post by title..">
-            <button class="shadow-sm inline-block font-normal text-md text-white px-2 bg-blue-500 hover:bg-blue-700" id="search_button" name="search_button"> Search </button>
-        </div>
-        @if(count($post) === 0)
-        <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg mb-4">
-            <div class="p-6 text-gray-900 dark:text-gray-100">
-                <p class="font-normal text-lg"> Post tidak ditemukan </p>
+            @endif
+            <div class="inline-flex flex flex-row mb-4 justify-end w-full">
+                <input class="shadow-sm inline-block border-0 appearance-none" type="text" id="search_post" name="search_post" placeholder="Search post by title..">
+                <button class="shadow-sm inline-block font-normal text-md text-white px-2 bg-blue-500 hover:bg-blue-700" id="search_button" name="search_button"> Search </button>
             </div>
-        </div>
-        @endif
-        @foreach($post as $p)
+            @if(count($post) === 0)
+            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg mb-4">
+                <div class="p-6 text-gray-900 dark:text-gray-100">
+                    <p class="font-normal text-lg"> Post tidak ditemukan </p>
+                </div>
+            </div>
+            @endif
+            @foreach($post as $p)
             <div class="max-w-sm w-full lg:max-w-full lg:flex mb-4">
                 @if ($p->photo_dir)
                 <div class="h-48 lg:h-auto lg:w-48 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden" style="background-image: url({{ asset('storage/' . $p->photo_dir) }});background-position: center center;">
@@ -59,7 +59,7 @@
                             {{ $p->content }}
                         @endif
                         </p>
-                        <a href="/lihat_post/{{ $p->id }}" class="font-normal text-md text-blue-500"> Read more... </a>
+                        <!-- <a href="/lihat_post/{{ $p->id }}" class="font-normal text-md text-blue-500"> Read more... </a> -->
                     </div>
                     <div class="flex items-center text-sm">
                         @if ($p->id_user == 0)
@@ -89,8 +89,8 @@
                     </div>
                 </div>
             </div>
-        @endforeach
-        {{ $post->links() }}
+            @endforeach
+            {{ $post->links() }}
         </div>
     </div>
 </x-app-layout>
