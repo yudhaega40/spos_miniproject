@@ -20,8 +20,8 @@
                 </div>
             @endif
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900 dark:text-gray-100">
-                    <table class="cell-border stripe" name="tabel_user" id="tabel_user">
+                <div class="p-6 text-gray-900 dark:text-gray-100 overflow-auto">
+                    <table class="cell-border stripe w-full table-auto" name="tabel_user" id="tabel_user">
                         <thead>
                             <tr>
                                 <th>No</th>
@@ -50,7 +50,7 @@
                                 <td>
                                     @if(Auth::user()->role == 2 || Auth::user()->role == 3)
                                     <div class="flex flex-row justify-center"> 
-                                        <a href="/edit_user/{{ $u->id }}" class="bg-green-700 hover:bg-green-500 text-white py-1 px-2 mr-2 rounded">
+                                        <a href="/edit_user/{{ $u->id }}" class="bg-green-700 hover:bg-green-500 text-white py-1 px-2 mr-2 rounded text-center">
                                             <i class="fa fa-pen-to-square"></i> Edit 
                                         </a>
                                         <form method="GET" action="{{ route('delete_user', $u->id) }}">
@@ -96,6 +96,7 @@
             ordering:false,
             lengthChange:false,
             pageLength:15,
+            responsive: true,
             // "columnDefs": [
             // { "searchable": false, "targets": 7 }
             // ]

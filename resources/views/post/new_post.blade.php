@@ -10,7 +10,7 @@
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <form method="POST" action="{{ route('simpan_new_post') }}" enctype="multipart/form-data">
-                        <div class="grid grid-cols-4 gap-4">
+                        <div class="lg:grid lg:grid-cols-4 lg:gap-4">
                             <div id="form1" class="col-span-3">
                                 @csrf
 

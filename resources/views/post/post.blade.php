@@ -20,77 +20,79 @@
     </x-slot>
 
     <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            @if (session()->has('post_red'))
-            <div class="bg-red-100 mb-4 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
-                <span class="block sm:inline">{{ session('post_red') }}</span>
-            </div>
-            @endif
-            <div class="inline-flex flex flex-row mb-4 justify-end w-full">
-                <input class="shadow-sm inline-block border-0 appearance-none" type="text" id="search_post" name="search_post" placeholder="Search post by title..">
-                <button class="shadow-sm inline-block font-normal text-md text-white px-2 bg-blue-500 hover:bg-blue-700" id="search_button" name="search_button"> Search </button>
-            </div>
-            @if(count($post) === 0)
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg mb-4">
-                <div class="p-6 text-gray-900 dark:text-gray-100">
-                    <p class="font-normal text-lg"> Post tidak ditemukan </p>
-                </div>
-            </div>
-            @endif
-            @foreach($post as $p)
-            <div class="max-w-sm w-full lg:max-w-full lg:flex mb-4">
-                @if ($p->photo_dir)
-                <div class="h-48 lg:h-auto lg:w-48 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden" style="background-image: url({{ asset('storage/' . $p->photo_dir) }});background-position: center center;">
+        <div class="max-w-7xl mx-auto px-8">
+            <div class="grid place-items-center">
+                @if (session()->has('post_red'))
+                <div class="bg-red-100 mb-4 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+                    <span class="block sm:inline">{{ session('post_red') }}</span>
                 </div>
                 @endif
-                <div class="bg-white w-full rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
-                    <div class="mb-8">
-                        <div class="text-gray-900 font-bold text-xl mb-2"><a href="/lihat_post/{{ $p->id }}" class="hover:text-blue-900">
-                        @if(strlen($p->title) > 100)
-                            {{ substr($p->title,0,100)."..." }}
-                        @else
-                            {{ $p->title }}
-                        @endif
-                        </a></div>
-                        <p class="text-gray-700 text-base">
-                        @if(strlen($p->content) > 200)
-                            {{ substr($p->content,0,200)."..." }}
-                        @else
-                            {{ $p->content }}
-                        @endif
-                        </p>
-                        <!-- <a href="/lihat_post/{{ $p->id }}" class="font-normal text-md text-blue-500"> Read more... </a> -->
-                    </div>
-                    <div class="flex items-center text-sm">
-                        @if ($p->id_user == 0)
-                        <p class="text-gray-500 leading-none"><i class="fa-regul fa-user"></i> Account Deleted </p>
-                        @else
-                        <p class="text-gray-500 leading-none"><a href='/post_by_author/{{$p->id_user}}' class="hover:text-blue-900"><i class="fa-solid fa-user"></i> {{ $p->user->name }} 
-                            @if($p->user->role == 1)
-                                (Author)
-                            @elseif($p->user->role == 2)
-                                (Editor)
-                            @elseif($p->user->role == 3)
-                                (Admin)
-                            @endif
-                        </a></p>
-                        @endif
-                        <p class="text-gray-500 leading-none ml-4"><i class="fa-regular fa-clock"></i> {{ $p->created_at->format('d F Y H:i:s') }}</p>
-                    </div>
-                    <div class="flex flex-row justify-start mt-4">
-                        @if(Auth::user()->role == 3 || (Auth::user()->role == 2 && ($p->id_user != 0 && $p->user->role != 3)) || (Auth::user()->role == 1 && Auth::user()->id == $p->id_user))
-                        <a href="/edit_post/{{ $p->id }}" class="font-normal text-md text-white mr-2 px-2 rounded-lg bg-green-700 hover:bg-green-500"> Edit </a>
-                        @endif
-                        @if(Auth::user()->role == 3 || (Auth::user()->role == 2 && Auth::user()->id == $p->id_user) || (Auth::user()->role == 1 && Auth::user()->id == $p->id_user))
-                        <form method="GET" action="{{ route('delete_post', $p->id) }}">
-                            @csrf
-                            <button type="submit" class="show_confirm font-normal text-md text-white mr-2 px-2 rounded-lg bg-red-700 hover:bg-red-500" data-toggle="tooltip" title='Delete'> Delete </p>
-                        </form>
-                        @endif
+                <div class="inline-flex flex flex-row mb-4 justify-end w-full">
+                    <input class="shadow-sm inline-block border-0 appearance-none" type="text" id="search_post" name="search_post" placeholder="Search post by title..">
+                    <button class="shadow-sm inline-block font-normal text-md text-white px-2 bg-blue-500 hover:bg-blue-700" id="search_button" name="search_button"> Search </button>
+                </div>
+                @if(count($post) === 0)
+                <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg mb-4">
+                    <div class="p-6 text-gray-900 dark:text-gray-100">
+                        <p class="font-normal text-lg"> Post tidak ditemukan </p>
                     </div>
                 </div>
+                @endif
+                @foreach($post as $p)
+                <div class="max-w-sm w-full lg:max-w-full lg:flex mb-4">
+                    @if ($p->photo_dir)
+                    <div class="h-48 lg:h-auto lg:w-48 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden" style="background-image: url({{ asset('storage/' . $p->photo_dir) }});background-position: center center;">
+                    </div>
+                    @endif
+                    <div class="bg-white w-full rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
+                        <div class="mb-8">
+                            <div class="text-gray-900 font-bold text-xl mb-2"><a href="/lihat_post/{{ $p->id }}" class="hover:text-blue-900">
+                            @if(strlen($p->title) > 100)
+                                {{ substr($p->title,0,100)."..." }}
+                            @else
+                                {{ $p->title }}
+                            @endif
+                            </a></div>
+                            <p class="text-gray-700 text-base">
+                            @if(strlen($p->content) > 200)
+                                {{ substr($p->content,0,200)."..." }}
+                            @else
+                                {{ $p->content }}
+                            @endif
+                            </p>
+                            <!-- <a href="/lihat_post/{{ $p->id }}" class="font-normal text-md text-blue-500"> Read more... </a> -->
+                        </div>
+                        <div class="flex items-center text-sm">
+                            @if ($p->id_user == 0)
+                            <p class="text-gray-500 leading-none"><i class="fa-regul fa-user"></i> Account Deleted </p>
+                            @else
+                            <p class="text-gray-500 leading-none"><a href='/post_by_author/{{$p->id_user}}' class="hover:text-blue-900"><i class="fa-solid fa-user"></i> {{ $p->user->name }} 
+                                @if($p->user->role == 1)
+                                    (Author)
+                                @elseif($p->user->role == 2)
+                                    (Editor)
+                                @elseif($p->user->role == 3)
+                                    (Admin)
+                                @endif
+                            </a></p>
+                            @endif
+                            <p class="text-gray-500 leading-none ml-4"><i class="fa-regular fa-clock"></i> {{ $p->created_at->format('d F Y H:i:s') }}</p>
+                        </div>
+                        <div class="flex flex-row justify-start mt-4">
+                            @if(Auth::user()->role == 3 || (Auth::user()->role == 2 && ($p->id_user != 0 && $p->user->role != 3)) || (Auth::user()->role == 1 && Auth::user()->id == $p->id_user))
+                            <a href="/edit_post/{{ $p->id }}" class="font-normal text-md text-white mr-2 px-2 rounded-lg bg-green-700 hover:bg-green-500"> Edit </a>
+                            @endif
+                            @if(Auth::user()->role == 3 || (Auth::user()->role == 2 && Auth::user()->id == $p->id_user) || (Auth::user()->role == 1 && Auth::user()->id == $p->id_user))
+                            <form method="GET" action="{{ route('delete_post', $p->id) }}">
+                                @csrf
+                                <button type="submit" class="show_confirm font-normal text-md text-white mr-2 px-2 rounded-lg bg-red-700 hover:bg-red-500" data-toggle="tooltip" title='Delete'> Delete </p>
+                            </form>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+                @endforeach
             </div>
-            @endforeach
             {{ $post->links() }}
         </div>
     </div>
