@@ -60,18 +60,26 @@
 
                     <p class="font-normal text-lg mt-5 break-words"> {{ $post->content }} </p>
 
-                    <div class="flex flex-row justify-start">
-                        <p class="font-normal text-sm text-white font-bold mt-5 bg-blue-900 px-2 py-1 rounded-2xl">Tags:</p>
+                    <div class="flex flex-row justify-start mt-4">
+                        <div>
+                            <p class="font-normal text-sm text-white font-bold mt-2 bg-blue-900 px-2 py-1 rounded-2xl">Tags:</p>
+                        </div>
+                        <div class="flex flex-row flex-wrap">
                         @foreach($post_tag as $pt)
-                            <p class="font-normal text-sm text-blue-900 font-bold mt-5 ml-4 border border-blue-900 hover:bg-blue-900 hover:text-white px-2 py-1 rounded-2xl"><a href="/post_by_tag/{{$pt->id}}">{{ $pt->name }}</a></p>
+                            <p class="font-normal text-sm text-blue-900 font-bold mt-2 ml-2 border border-blue-900 hover:bg-blue-900 hover:text-white px-2 py-1 rounded-2xl"><a href="/post_by_tag/{{$pt->id}}">{{ $pt->name }}</a></p>
                         @endforeach
+                        </div>
                     </div>
 
-                    <div class="flex flex-row justify-start">
-                        <p class="font-normal text-sm text-white font-bold mt-5 bg-green-900 px-2 py-1 rounded-2xl">Kategori:</p>
+                    <div class="flex flex-row justify-start mt-4">
+                        <div>
+                            <p class="font-normal text-sm text-white font-bold mt-2 bg-green-900 px-2 py-1 rounded-2xl">Kategori:</p>
+                        </div>
+                        <div class="flex flex-row flex-wrap">
                         @foreach($post_category as $pc)
-                            <p class="font-normal text-sm text-green-900 font-bold mt-5 ml-4 border border-green-900 hover:bg-green-900 hover:text-white px-2 py-1 rounded-2xl"><a href="/post_by_category/{{$pc->id}}">{{ $pc->name }}</a></p>
+                            <p class="font-normal text-sm text-green-900 font-bold mt-2 ml-2 border border-green-900 hover:bg-green-900 hover:text-white px-2 py-1 rounded-2xl"><a href="/post_by_category/{{$pc->id}}">{{ $pc->name }}</a></p>
                         @endforeach
+                        </div>
                     </div>
 
                 </div>
