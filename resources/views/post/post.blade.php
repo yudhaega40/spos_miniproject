@@ -41,18 +41,14 @@
                 @foreach($post as $p)
                 <div class="max-w-sm w-full md:max-w-full md:flex mb-4 break-all">
                     @if ($p->photo_dir)
-                    <div class="h-48 md:h-auto md:w-72 flex-none bg-cover rounded-t md:rounded-t-none md:rounded-l text-center overflow-hidden" onclick="location.href='/lihat_post/{{ $p->id }}';">
+                    <div class="h-52 md:w-72 flex-none bg-cover rounded-t md:rounded-t-none md:rounded-l text-center overflow-hidden" onclick="location.href='/lihat_post/{{ $p->id }}';">
                         <img class="object-cover h-full w-full hover:cursor-pointer hover:scale-105 transition duration-300 ease-in-out" src="{{ asset('storage/' . $p->photo_dir) }}" alt="{{ asset('storage/' . $p->photo_dir) }}" >  
                     </div>
                     @endif
-                    <div class="bg-white w-full rounded-b md:rounded-b-none md:rounded-r p-4 flex flex-col justify-between leading-normal">
+                    <div class="bg-white w-full rounded-b md:rounded-b-none md:rounded-r p-4 flex flex-col justify-between leading-normal md:h-52">
                         <div class="mb-8">
-                            <div class="text-gray-900 font-bold text-xl mb-2"><a href="/lihat_post/{{ $p->id }}" class="hover:text-blue-900" title="{{ $p->title }}">
-                            @if(strlen($p->title) > 50)
-                                {{ substr($p->title,0,50)."..." }}
-                            @else
+                            <div class="text-gray-900 font-bold text-xl mb-2 truncate"><a href="/lihat_post/{{ $p->id }}" class=" hover:text-blue-900" title="{{ $p->title }}">
                                 {{ $p->title }}
-                            @endif
                             </a></div>
                             <p class="text-gray-700 text-base">
                             @if(strlen($p->content) > 200)

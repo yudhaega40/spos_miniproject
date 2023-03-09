@@ -35,7 +35,7 @@
         <div class="max-w-3xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg mb-4">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
-                    <h1 class="font-semibold text-5xl text-center">{{ $post->title }}</h1>
+                    <h1 class="font-semibold text-5xl text-center break-words">{{ $post->title }}</h1>
                     <div class="flex items-center justify-center">
                         @if ($post->id_user == 0)
                         <p class="font-light text-md text-center text-gray-500 mt-1"> <i class="fa-solid fa-user"></i> Account Deleted </p>
@@ -52,6 +52,7 @@
                         @endif
                         <p class="font-light text-md text-center text-gray-500 mt-1 ml-4"><i class="fa-regular fa-clock"></i> {{ $post->created_at->format('d F Y H:i:s') }}</p>
                     </div>
+                    
                     @if ($post->photo_dir)
                     <div class="w-full flex justify-center">
                         <img src="{{ asset('storage/' . $post->photo_dir) }}" alt="{{ asset('storage/' . $post->photo_dir) }}" class="object-cover w-full rounded-xl mt-5">  
