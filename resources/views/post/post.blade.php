@@ -40,9 +40,9 @@
                 @endif
                 @foreach($post as $p)
                 <div class="max-w-sm w-full lg:max-w-full lg:flex mb-4 break-all">
-                    @if ($p->photo_dir)
+                    @if ($p->photo_dir) 
                     <div class="h-52 lg:w-72 flex-none rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden" onclick="location.href='/lihat_post/{{ $p->id }}';">
-                        <img class="object-cover h-full w-full hover:cursor-pointer hover:scale-105 transition duration-300 ease-in-out" src="{{ asset('storage/' . $p->photo_dir) }}" alt="{{ asset('storage/' . $p->photo_dir) }}" >  
+                        <img class="object-cover h-full lg:w-72 hover:cursor-pointer hover:scale-105 transition duration-300 ease-in-out" src="{{ asset('storage/' . $p->photo_dir) }}" alt="{{ asset('storage/' . $p->photo_dir) }}" >  
                     </div>
                     @endif
                     <div class="bg-white w-full rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal lg:h-52">
