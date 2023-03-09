@@ -17,7 +17,8 @@
                     @elseif(Auth::user()->role == 3)
                         {{ __('Admin') }}
                     @endif
-                    </b>! 
+                    </b>!
+                    <br><a href='/post_by_author/{{Auth::user()->id}}' class="hover:text-blue-900">Check your post?</a> 
                 </div>
             </div>
         </div>

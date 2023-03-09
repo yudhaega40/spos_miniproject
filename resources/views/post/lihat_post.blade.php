@@ -6,7 +6,7 @@
             </h2>
             <x-dropdown align="right">
                 <x-slot name="trigger">
-                    @if(Auth::user()->role == 3 || (Auth::user()->role == 1 && Auth::user()->id = $post->id_user) || (Auth::user()->role == 2 && ($post->id_user != 0 && $post->user->role != 3)))
+                    @if(Auth::user()->role == 3 || (Auth::user()->role == 1 && Auth::user()->id == $post->id_user) || (Auth::user()->role == 2 && ($post->id_user != 0 && $post->user->role != 3)))
                     <a href="#" class="transition ease-in-out duration-150"> 
                         <i class="fa-solid fa-ellipsis-vertical"></i> 
                     </a>
@@ -58,7 +58,7 @@
                     </div>
                     @endif
 
-                    <p class="font-normal text-lg mt-5 break-words"> {{ $post->content }} </p>
+                    <p class="font-normal text-lg mt-5 break-words whitespace-pre-wrap">{{ $post->content }} </p>
 
                     <div class="flex flex-row justify-start mt-4">
                         <div>

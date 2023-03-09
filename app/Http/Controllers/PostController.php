@@ -16,13 +16,18 @@ use Carbon\Carbon;
 class PostController extends Controller
 {
     public function index(){
-        $post = Post::with('user')->paginate(5);
+        $post = Post::with('user')
+        ->orderBy('created_at', 'desc')
+        ->paginate(5);
 
         return view('post.post', ['post'=>$post]);
     }
 
     public function cari_post($q){
-        $post = Post::with('user')->where('title','LIKE','%'.$q.'%')->paginate(5);
+        $post = Post::with('user')
+        ->orderBy('created_at', 'desc')
+        ->where('title','LIKE','%'.$q.'%')
+        ->paginate(5);
 
         return view('post.post', ['post'=>$post]);
     }
@@ -31,7 +36,10 @@ class PostController extends Controller
         $author_name = DB::table('users')->where('id', $id)->first();
         $type = "by_author";
 
-        $post = Post::with('user')->where('id_user',$id)->paginate(5);
+        $post = Post::with('user')
+        ->orderBy('created_at', 'desc')
+        ->where('id_user',$id)
+        ->paginate(5);
 
         return view('post.post', ['post'=>$post,'type'=>$type,'author_name'=>$author_name]);
     }
@@ -42,7 +50,11 @@ class PostController extends Controller
 
         $tag = DB::table('post_tag')->select('id_post')->where('id_tag', $id)->get();
         $array = json_decode(json_encode($tag), true);
-        $post = Post::with('user')->whereIn('id',$array)->paginate(5);
+
+        $post = Post::with('user')
+        ->whereIn('id',$array)
+        ->orderBy('created_at', 'desc')
+        ->paginate(5);
 
         return view('post.post', ['post'=>$post,'type'=>$type,'tag_name'=>$tag_name]);
     }
@@ -53,7 +65,11 @@ class PostController extends Controller
 
         $category = DB::table('post_category')->select('id_post')->where('id_category', $id)->get();
         $array = json_decode(json_encode($category), true);
-        $post = Post::with('user')->whereIn('id',$array)->paginate(5);
+
+        $post = Post::with('user')
+        ->whereIn('id',$array)
+        ->orderBy('created_at', 'desc')
+        ->paginate(5);
 
         return view('post.post', ['post'=>$post,'type'=>$type,'category_name'=>$category_name]);
     }   
@@ -130,4 +146,5 @@ class PostController extends Controller
 
         return redirect('/post');
     }
+
 }

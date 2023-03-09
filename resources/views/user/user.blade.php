@@ -38,7 +38,9 @@
                                 <th class="border border-slate-400 text-center py-2 lg:w-4/12">Nama</th>
                                 <th class="border border-slate-400 text-center py-2 lg:w-5/12">Email</th>
                                 <th class="border border-slate-400 text-center py-2 lg:w-1/12">Role</th>
+                                @if(Auth::user()->role == 2 || Auth::user()->role == 3)
                                 <th class="border border-slate-400 text-center py-2 lg:w-2/12">Aksi</th>
+                                @endif
                             </tr>
                         </thead>
                         <tbody>
@@ -55,8 +57,8 @@
                                         {{ __('Admin') }}
                                     @endif
                                 </td>
+                                @if(Auth::user()->role == 2 || Auth::user()->role == 3)
                                 <td class="border border-slate-400 text-center p-2"> 
-                                    @if(Auth::user()->role == 2 || Auth::user()->role == 3)
                                     <div class="flex flex-row justify-center"> 
                                         <a href="/edit_user/{{ $u->id }}" class="bg-green-700 hover:bg-green-500 text-white py-1 px-2 mr-2 rounded text-center">
                                             <i class="fa fa-pen-to-square"></i> Edit 
@@ -68,14 +70,14 @@
                                             </button>
                                         </form>
                                     </div>
-                                    @endif
                                 </td>
+                                @endif
                             </tr>
                             @endforeach
                         </tbody>
                     </table>
                 </div>
-                <div class="mt-4">{{ $user->links() }}</div>
+                <div class="p-6">{{ $user->links() }}</div>
             </div>
             @endif
         </div>

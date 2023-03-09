@@ -32,19 +32,19 @@
                     <button class="shadow-sm inline-block font-normal text-md text-white px-2 bg-blue-500 hover:bg-blue-700" id="search_button" name="search_button"> Search </button>
                 </div>
                 @if(count($post) === 0)
-                <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg mb-4">
+                <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg max-w-sm w-full md:max-w-full md:flex mb-4">
                     <div class="p-6 text-gray-900 dark:text-gray-100">
                         <p class="font-normal text-lg"> Post tidak ditemukan </p>
                     </div>
                 </div>
                 @endif
                 @foreach($post as $p)
-                <div class="max-w-sm w-full lg:max-w-full lg:flex mb-4">
+                <div class="max-w-sm w-full md:max-w-full md:flex mb-4 break-all">
                     @if ($p->photo_dir)
-                    <div class="h-48 lg:h-auto lg:w-48 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden" style="background-image: url({{ asset('storage/' . $p->photo_dir) }});background-position: center center;">
+                    <div class="h-48 md:h-auto md:w-72 flex-none bg-cover rounded-t md:rounded-t-none md:rounded-l text-center overflow-hidden" style="background-image: url({{ asset('storage/' . $p->photo_dir) }});background-position: center center;">
                     </div>
                     @endif
-                    <div class="bg-white w-full rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
+                    <div class="bg-white w-full rounded-b md:rounded-b-none md:rounded-r p-4 flex flex-col justify-between leading-normal">
                         <div class="mb-8">
                             <div class="text-gray-900 font-bold text-xl mb-2"><a href="/lihat_post/{{ $p->id }}" class="hover:text-blue-900">
                             @if(strlen($p->title) > 100)

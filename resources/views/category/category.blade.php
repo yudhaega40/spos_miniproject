@@ -56,7 +56,7 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="mt-4">{{ $category->links() }}</div>
+                <div class="p-6">{{ $category->links() }}</div>
             </div>
             @endif
         </div>
