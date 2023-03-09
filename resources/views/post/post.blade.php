@@ -47,9 +47,9 @@
                     @endif
                     <div class="bg-white w-full rounded-b md:rounded-b-none md:rounded-r p-4 flex flex-col justify-between leading-normal">
                         <div class="mb-8">
-                            <div class="text-gray-900 font-bold text-xl mb-2"><a href="/lihat_post/{{ $p->id }}" class="hover:text-blue-900">
-                            @if(strlen($p->title) > 100)
-                                {{ substr($p->title,0,100)."..." }}
+                            <div class="text-gray-900 font-bold text-xl mb-2"><a href="/lihat_post/{{ $p->id }}" class="hover:text-blue-900" title="{{ $p->title }}">
+                            @if(strlen($p->title) > 50)
+                                {{ substr($p->title,0,50)."..." }}
                             @else
                                 {{ $p->title }}
                             @endif
@@ -65,7 +65,7 @@
                         </div>
                         <div class="flex items-center text-sm">
                             @if ($p->id_user == 0)
-                            <p class="text-gray-500 leading-none"><i class="fa-regul fa-user"></i> Account Deleted </p>
+                            <p class="text-gray-500 leading-none"><i class="fa-solid fa-user"></i> Account Deleted </p>
                             @else
                             <p class="text-gray-500 leading-none"><a href='/post_by_author/{{$p->id_user}}' class="hover:text-blue-900"><i class="fa-solid fa-user"></i> {{ $p->user->name }} 
                                 @if($p->user->role == 1)
