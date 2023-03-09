@@ -125,7 +125,7 @@
 
     $("#search_button").click(function(){
         var input = $("#search_post").val();
-        if(input != ""){
+        if(!(input.match(/^\s*$/))){
             window.location.href = "/cari_post/"+input;
         }
     });

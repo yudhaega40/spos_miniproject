@@ -26,8 +26,8 @@ class UserController extends Controller
 
     public function cari_user($q){
         $user = DB::table('users')
-        ->where('name','LIKE','%'.$q.'%')
-        ->where('id','!=',Auth::user()->id)
+        ->where([['id','!=',Auth::user()->id],['name','LIKE','%'.$q.'%']])
+        ->orWhere([['id','!=',Auth::user()->id],['email','LIKE','%'.$q.'%']])
         ->paginate(10);
 
         return view('user.user', ['user' => $user]);

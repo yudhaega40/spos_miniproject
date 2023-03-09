@@ -20,7 +20,7 @@
                 </div>
             @endif
             <div class="inline-flex flex flex-row mb-4 justify-end w-full">
-                <input class="shadow-sm inline-block border-0 appearance-none" type="text" id="search" name="search" placeholder="Search user by name..">
+                <input class="shadow-sm inline-block border-0 appearance-none" type="text" id="search" name="search" placeholder="Search user..">
                 <button class="shadow-sm inline-block font-normal text-md text-white px-2 bg-blue-500 hover:bg-blue-700" id="search_button" name="search_button"> Search </button>
             </div>
             @if(count($user) === 0)
@@ -110,7 +110,7 @@
 
     $("#search_button").click(function(){
         var input = $("#search").val();
-        if(input != ""){
+        if(!(input.match(/^\s*$/))){
             window.location.href = "/cari_user/"+input;
         }
     });

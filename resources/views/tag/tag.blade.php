@@ -89,7 +89,7 @@
 
     $("#search_button").click(function(){
         var input = $("#search").val();
-        if(input != ""){
+        if(!(input.match(/^\s*$/))){
             window.location.href = "/cari_tag/"+input;
         }
     });
