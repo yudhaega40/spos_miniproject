@@ -177,17 +177,9 @@ class PostController extends Controller
             'content' => ['required', 'string'],
         ]);
 
-        if ($request->hasFile('foto')){     //change photo
-			$path = $request->foto->store('foto');
-            DB::table('post')->where('id', $request->id_post)->update([
-                'title' => $request->title,
-                'content' => $request->content,
-                'photo_dir' => $path,
-                'updated_at' => Carbon::now(),
-            ]);
-		}else if($request->remove_img){     //remove photo
+        if($request->remove_img){     //remove photo	
             $old = DB::table('post')->where('id', $request->id_post)->first();
-            if($old->photo_dir != 'foto/default.jpg'){
+            if($old->photo_dir != 'foto/default.jpg' && $old->photo_dir != null){
                 if(Storage::exists($old->photo_dir)){
                     Storage::delete($old->photo_dir);
                 }
@@ -197,6 +189,14 @@ class PostController extends Controller
                 'title' => $request->title,
                 'content' => $request->content,
                 'photo_dir' => null,
+                'updated_at' => Carbon::now(),
+            ]);
+		}else if ($request->hasFile('foto')){     //change photo
+            $path = $request->foto->store('foto');
+            DB::table('post')->where('id', $request->id_post)->update([
+                'title' => $request->title,
+                'content' => $request->content,
+                'photo_dir' => $path,
                 'updated_at' => Carbon::now(),
             ]);
         }else{                              //No Change

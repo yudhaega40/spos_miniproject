@@ -22,7 +22,7 @@
                                 </div>
 
                                 <!-- Content -->
-                                <div class="mt-4">
+                                <div class="my-4">
                                     <x-input-label for="content" :value="__('Post Content')" />
                                     <textarea id="content" class="block mt-1 w-full p-3" rows="15" name="content" required></textarea>
                                     <x-input-error :messages="$errors->get('content')" class="mt-2" />

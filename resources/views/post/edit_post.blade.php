@@ -22,7 +22,7 @@
                                 </div>
 
                                 <!-- Content -->
-                                <div class="mt-4">
+                                <div class="my-4">
                                     <x-input-label for="content" :value="__('Post Content')" />
                                     <textarea id="content" class="block mt-1 w-full p-3" rows="17" name="content" required>{{$post->content}}</textarea>
                                     <x-input-error :messages="$errors->get('content')" class="mt-2" />
@@ -86,3 +86,18 @@
         </div>
     </div>
 </x-app-layout>
+
+<script>
+    $("#remove_img").click(function() {
+        if(this.checked) {
+            input = document.getElementById('foto');
+            input.value = '';
+        }
+    });
+
+    $("#foto").change(function (){
+       var fileName = $(this).val();
+       $("#remove_img").prop( "checked", false );
+    });
+
+</script>

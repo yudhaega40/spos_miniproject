@@ -46,6 +46,7 @@
                     </div>
                     @endif
                     <div class="bg-white w-full rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal lg:h-auto lg:max-h-56">
+                        <!-- Judul dan isi -->
                         <div class="mb-8">
                             <div class="text-gray-900 font-bold text-xl mb-2 truncate"><a href="/lihat_post/{{ $p->id }}" class=" hover:text-blue-900" title="{{ $p->title }}">
                                 {{ $p->title }}
@@ -57,9 +58,9 @@
                                 {{ $p->content }}
                             @endif
                             </p>
-                            <!-- <a href="/lihat_post/{{ $p->id }}" class="font-normal text-md text-blue-500"> Read more... </a> -->
                         </div>
-                        <div class="flex items-center text-sm">
+                        <!-- Nama Author dan Tanggal Post -->
+                        <div class="flex items-center text-xs lg:text-sm">
                             @if ($p->id_user == 0)
                             <p class="text-gray-500 leading-none"><i class="fa-solid fa-user"></i> Account Deleted </p>
                             @else
@@ -75,6 +76,7 @@
                             @endif
                             <p class="text-gray-500 leading-none ml-4"><i class="fa-regular fa-clock"></i> {{ $p->created_at->format('d F Y H:i:s') }}</p>
                         </div>
+                        <!-- Tombol Edit dan Delete -->
                         <div class="flex flex-row justify-start mt-4">
                             @if(Auth::user()->role == 3 || (Auth::user()->role == 2 && ($p->id_user != 0 && $p->user->role != 3)) || (Auth::user()->role == 1 && Auth::user()->id == $p->id_user))
                             <a href="/edit_post/{{ $p->id }}" class="font-normal text-md text-white mr-2 px-2 rounded-lg bg-green-700 hover:bg-green-500"> Edit </a>
