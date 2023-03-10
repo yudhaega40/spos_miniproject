@@ -53,7 +53,12 @@
 
                                 <div class="mt-4">
                                     <x-input-label for="foto" :value="__('Add Photo')" />
-                                    <input type="file" id="foto" name="foto" accept="image/png, image/gif, image/jpeg" class="block w-full text-sm text-gray-500 file:py-2 file:px-6 file:rounded file:border-1 file:border-gray-400" />
+                                    <div class="flex flex-row justify-between">
+                                        <input type="file" id="foto" name="foto" accept="image/png, image/gif, image/jpeg" class="block w-full text-sm text-gray-500 file:py-2 file:px-6 file:rounded file:border-1 file:border-gray-400 cursor-pointer file:cursor-pointer"/>
+                                        <div class="flex justify-center items-center">
+                                            <i class="fa-solid fa-xmark hover:cursor-pointer" id="remove_img" name="remove_img" title="Remove Selected Photo"></i>
+                                        </div>
+                                    </div>
                                 </div>
                                 
                                 <div class="flex flex-col items-center justify-end mt-4">
@@ -72,3 +77,10 @@
         </div>
     </div>
 </x-app-layout>
+
+<script>
+    $("#remove_img").click(function() {
+        input = document.getElementById('foto');
+        input.value = '';
+    });
+</script>
