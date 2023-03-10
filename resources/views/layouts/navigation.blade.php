@@ -17,22 +17,43 @@
                     </x-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('user')" :active="request()->routeIs('user')">
+                    <x-nav-link :href="route('user')" 
+                    :active="request()->routeIs('user') ||
+                    request()->routeIs('cari_user') ||
+                    request()->routeIs('edit_user') ||
+                    request()->routeIs('new_user') ||
+                    request()->routeIs('ubah_password')">
                         {{ __('User') }}
                     </x-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('post')" :active="request()->routeIs('post')">
+                    <x-nav-link :href="route('post')" 
+                    :active="request()->routeIs('post') || 
+                    request()->routeIs('new_post') ||
+                    request()->routeIs('cari_post') ||
+                    request()->routeIs('lihat_post') ||
+                    request()->routeIs('edit_post') ||
+                    request()->routeIs('post_by_author') ||
+                    request()->routeIs('post_by_tag') ||
+                    request()->routeIs('post_by_category') ">
                         {{ __('Post') }}
                     </x-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('category')" :active="request()->routeIs('category')">
+                    <x-nav-link :href="route('category')" 
+                    :active="request()->routeIs('category') || 
+                    request()->routeIs('cari_category') || 
+                    request()->routeIs('new_category') || 
+                    request()->routeIs('edit_category')">
                         {{ __('Category') }}
                     </x-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('tag')" :active="request()->routeIs('tag')">
+                    <x-nav-link :href="route('tag')" 
+                    :active="request()->routeIs('tag') ||
+                    request()->routeIs('cari_tag') || 
+                    request()->routeIs('new_tag') || 
+                    request()->routeIs('edit_tag')">
                         {{ __('Tag') }}
                     </x-nav-link>
                 </div>
@@ -92,22 +113,43 @@
             </x-responsive-nav-link>
         </div>
         <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('user')" :active="request()->routeIs('user')">
+            <x-responsive-nav-link :href="route('user')" 
+            :active="request()->routeIs('user') ||
+                    request()->routeIs('cari_user') ||
+                    request()->routeIs('edit_user') ||
+                    request()->routeIs('new_user') ||
+                    request()->routeIs('ubah_password')">
                 {{ __('User') }}
             </x-responsive-nav-link>
         </div>
         <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('post')" :active="request()->routeIs('post')">
+            <x-responsive-nav-link :href="route('post')" 
+            :active="request()->routeIs('post') || 
+                    request()->routeIs('new_post') ||
+                    request()->routeIs('cari_post') ||
+                    request()->routeIs('lihat_post') ||
+                    request()->routeIs('edit_post') ||
+                    request()->routeIs('post_by_author') ||
+                    request()->routeIs('post_by_tag') ||
+                    request()->routeIs('post_by_category') ">
                 {{ __('Post') }}
             </x-responsive-nav-link>
        </div>
         <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('category')" :active="request()->routeIs('category')">
+            <x-responsive-nav-link :href="route('category')" 
+            :active="request()->routeIs('category') || 
+                    request()->routeIs('cari_category') || 
+                    request()->routeIs('new_category') || 
+                    request()->routeIs('edit_category')">
                 {{ __('Category') }}
             </x-responsive-nav-link>
         </div>
         <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('tag')" :active="request()->routeIs('tag')">
+            <x-responsive-nav-link :href="route('tag')" 
+            :active="request()->routeIs('tag') ||
+                    request()->routeIs('cari_tag') || 
+                    request()->routeIs('new_tag') || 
+                    request()->routeIs('edit_tag')">
                 {{ __('Tag') }}
             </x-responsive-nav-link>
         </div>
