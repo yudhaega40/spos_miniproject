@@ -51,10 +51,18 @@ class TagController extends Controller
     }
 
     public function simpan_edit_tag(Request $request){
-        $request->validate([
-            'name' => ['required', 'string', 'max:20'],
-            'desc' => ['required', 'string', 'max:50'],
-        ]);
+        $old = DB::table('tag')->where('id', $request->id_tag)->first();
+        if($old->name != $request->name){
+            $request->validate([
+                'name' => ['required', 'string', 'max:20', 'unique:tag,name'],
+            ]);
+        }
+
+        if($old->desc != $request->desc){
+            $request->validate([
+                'desc' => ['required', 'string', 'max:50'],
+            ]);
+        }
 
         DB::table('tag')->where('id', $request->id_tag)->update([
             'name' => $request->name,

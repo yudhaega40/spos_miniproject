@@ -52,10 +52,18 @@ class CategoryController extends Controller
     }
 
     public function simpan_edit_category(Request $request){
-        $request->validate([
-            'name' => ['required', 'string', 'max:20'],
-            'desc' => ['required', 'string', 'max:50'],
-        ]);
+        $old = DB::table('category')->where('id', $request->id_tag)->first();
+        if($old->name != $request->name){
+            $request->validate([
+                'name' => ['required', 'string', 'max:20', 'unique:category,name'],
+            ]);
+        }
+
+        if($old->desc != $request->desc){
+            $request->validate([
+                'desc' => ['required', 'string', 'max:50'],
+            ]);
+        }
 
         DB::table('category')->where('id', $request->id_category)->update([
             'name' => $request->name,
