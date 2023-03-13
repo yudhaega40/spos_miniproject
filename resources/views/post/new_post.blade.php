@@ -24,7 +24,7 @@
                                 <!-- Content -->
                                 <div class="my-4">
                                     <x-input-label for="content" :value="__('Post Content')" />
-                                    <textarea id="content" class="block mt-1 w-full p-3" rows="15" name="content" required></textarea>
+                                    <textarea id="content" class="block mt-1 w-full p-3" rows="19" name="content" required></textarea>
                                     <x-input-error :messages="$errors->get('content')" class="mt-2" />
                                 </div>
                             </div>
@@ -32,21 +32,32 @@
                                 <!-- Tag -->
                                 <div>
                                     <x-input-label for="tag" :value="__('Post Tag')" />
-                                    <div class="overflow-y-auto h-32 border-solid border border-slate-500 rounded p-2">
-                                        @foreach($tag as $t)
-                                        <input type="checkbox" name="tag[]" ig="tag[]" value="{{ $t->id }}">
-                                        <label for="tag[]"> {{ $t->name }} </label><br>
-                                        @endforeach
+                                    <div class="h-auto border-solid border border-slate-500">
+                                        <input type="text" class="border-0 w-full" placeholder="&#xF002; Search" style="font-family:Arial, FontAwesome" data-search-tag><br>
+
+                                        <div class="overflow-y-auto h-32">
+                                            @foreach($tag as $t)
+                                            <div data-filter-tag-item data-filter-tag-name="{{ strtolower($t->name) }}" class="ml-2">
+                                                <input type="checkbox" name="tag[]" ig="tag[]" value="{{ $t->id }}">
+                                                <label class="ml-1" for="tag[]"> {{ $t->name }} </label><br>
+                                            </div>
+                                            @endforeach
+                                        </div>
                                     </div>
                                 </div>
 
                                 <!-- Category -->
                                 <div class="mt-4">
                                     <x-input-label for="category" :value="__('Post Category')" />
-                                    <div class="overflow-y-auto h-32 border-solid border border-slate-500 rounded p-2">
+                                    <div class="h-auto border-solid border border-slate-500">
+                                    <input type="text" class="border-0 w-full" placeholder="&#xF002; Search" style="font-family:Arial, FontAwesome" data-search-category><br>
+
+                                    <div class="overflow-y-auto h-32">
                                         @foreach($category as $c)
-                                        <input type="checkbox" name="category[]" ig="category[]" value="{{ $c->id }}">
-                                        <label for="category[]"> {{ $c->name }} </label><br>
+                                        <div data-filter-category-item data-filter-category-name="{{ strtolower($c->name) }}" class="ml-2">
+                                            <input type="checkbox" name="category[]" ig="category[]" value="{{ $c->id }}">
+                                            <label class="ml-1" for="category[]"> {{ $c->name }} </label><br>
+                                        </div>
                                         @endforeach
                                     </div>
                                 </div>
@@ -82,5 +93,29 @@
     $("#remove_img").click(function() {
         input = document.getElementById('foto');
         input.value = '';
+    });
+
+    $('[data-search-tag]').on('keyup', function() {
+        var searchVal = $(this).val();
+        var filterItems = $('[data-filter-tag-item]');
+
+        if ( searchVal != '' ) {
+            filterItems.addClass('hidden');
+            $('[data-filter-tag-item][data-filter-tag-name*="' + searchVal.toLowerCase() + '"]').removeClass('hidden');
+        } else {
+            filterItems.removeClass('hidden');
+        }
+    });
+
+    $('[data-search-category]').on('keyup', function() {
+        var searchVal = $(this).val();
+        var filterItems = $('[data-filter-category-item]');
+
+        if ( searchVal != '' ) {
+            filterItems.addClass('hidden');
+            $('[data-filter-category-item][data-filter-category-name*="' + searchVal.toLowerCase() + '"]').removeClass('hidden');
+        } else {
+            filterItems.removeClass('hidden');
+        }
     });
 </script>

@@ -24,7 +24,7 @@
                                 <!-- Content -->
                                 <div class="my-4">
                                     <x-input-label for="content" :value="__('Post Content')" />
-                                    <textarea id="content" class="block mt-1 w-full p-3" rows="17" name="content" required>{{$post->content}}</textarea>
+                                    <textarea id="content" class="block mt-1 w-full p-3" rows="20" name="content" required>{{$post->content}}</textarea>
                                     <x-input-error :messages="$errors->get('content')" class="mt-2" />
                                 </div>
                             </div>
@@ -32,28 +32,44 @@
                                 <!-- Tag -->
                                 <div>
                                     <x-input-label for="tag" :value="__('Post Tag')" />
-                                    <div class="overflow-y-auto h-32 border-solid border border-slate-500 rounded p-2">
-                                        @foreach($tag as $t)
-                                        <input type="checkbox" name="tag[]" ig="tag[]" value="{{ $t->id }}" <?php if(in_array($t->id, $post_tag)) echo 'checked' ?>>
-                                        <label for="tag[]"> {{ $t->name }} </label><br>
-                                        @endforeach
+                                    <div class="h-auto border-solid border border-slate-500">
+                                        <input type="text" class="border-0 w-full" placeholder="&#xF002; Search" style="font-family:Arial, FontAwesome" data-search-tag><br>
+
+                                        <div class="overflow-y-auto h-32">
+                                            @foreach($tag as $t)
+                                            <div data-filter-tag-item data-filter-tag-name="{{ strtolower($t->name) }}" class="ml-2">
+                                                <input type="checkbox" name="tag[]" ig="tag[]" value="{{ $t->id }}" <?php if(in_array($t->id, $post_tag)) echo 'checked' ?>>
+                                                <label class="ml-1" for="tag[]"> {{ $t->name }} </label><br>
+                                            </div>
+                                            @endforeach
+                                        </div>
                                     </div>
                                 </div>
 
                                 <!-- Category -->
                                 <div class="mt-4">
                                     <x-input-label for="category" :value="__('Post Category')" />
-                                    <div class="overflow-y-auto h-32 border-solid border border-slate-500 rounded p-2">
+                                    <div class="h-auto border-solid border border-slate-500">
+                                    <input type="text" class="border-0 w-full" placeholder="&#xF002; Search" style="font-family:Arial, FontAwesome" data-search-category><br>
+
+                                    <div class="overflow-y-auto h-32">
                                         @foreach($category as $c)
-                                        <input type="checkbox" name="category[]" ig="category[]" value="{{ $c->id }}" <?php if(in_array($c->id, $post_category)) echo 'checked' ?>>
-                                        <label for="category[]"> {{ $c->name }} </label><br>
+                                        <div data-filter-category-item data-filter-category-name="{{ strtolower($c->name) }}" class="ml-2">
+                                            <input type="checkbox" name="category[]" ig="category[]" value="{{ $c->id }}" <?php if(in_array($t->id, $post_tag)) echo 'checked' ?>>
+                                            <label class="ml-1" for="category[]"> {{ $c->name }} </label><br>
+                                        </div>
                                         @endforeach
                                     </div>
                                 </div>
 
                                 <div class="mt-4">
-                                    <x-input-label for="foto" :value="__('Change Photo')" />
-                                    <input type="file" id="foto" name="foto" accept="image/png, image/gif, image/jpeg" class="block w-full text-sm text-gray-500 file:py-2 file:px-6 file:rounded file:border-1 file:border-gray-400 cursor-pointer file:cursor-pointer"/>
+                                    <x-input-label for="foto" :value="__('Add Photo')" />
+                                    <div class="flex flex-row justify-between">
+                                        <input type="file" id="foto" name="foto" accept="image/png, image/gif, image/jpeg" class="block w-full text-sm text-gray-500 file:py-2 file:px-6 file:rounded file:border-1 file:border-gray-400 cursor-pointer file:cursor-pointer"/>
+                                        <div class="flex justify-center items-center">
+                                            <i class="fa-solid fa-xmark hover:cursor-pointer" id="remove_photo" name="remove_photo" title="Remove Selected Photo"></i>
+                                        </div>
+                                    </div>
                                 </div>
 
                                 <div class="mt-4">
@@ -88,6 +104,11 @@
 </x-app-layout>
 
 <script>
+    $("#remove_photo").click(function() {
+        input = document.getElementById('foto');
+        input.value = '';
+    });
+
     $("#remove_img").click(function() {
         if(this.checked) {
             input = document.getElementById('foto');
@@ -98,6 +119,30 @@
     $("#foto").change(function (){
        var fileName = $(this).val();
        $("#remove_img").prop( "checked", false );
+    });
+
+    $('[data-search-tag]').on('keyup', function() {
+        var searchVal = $(this).val();
+        var filterItems = $('[data-filter-tag-item]');
+
+        if ( searchVal != '' ) {
+            filterItems.addClass('hidden');
+            $('[data-filter-tag-item][data-filter-tag-name*="' + searchVal.toLowerCase() + '"]').removeClass('hidden');
+        } else {
+            filterItems.removeClass('hidden');
+        }
+    });
+
+    $('[data-search-category]').on('keyup', function() {
+        var searchVal = $(this).val();
+        var filterItems = $('[data-filter-category-item]');
+
+        if ( searchVal != '' ) {
+            filterItems.addClass('hidden');
+            $('[data-filter-category-item][data-filter-category-name*="' + searchVal.toLowerCase() + '"]').removeClass('hidden');
+        } else {
+            filterItems.removeClass('hidden');
+        }
     });
 
 </script>
